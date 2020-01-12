@@ -11,6 +11,8 @@ login = res["login"]
 password = res["password"]
 dirpath = res["dirpath"]
 
+print("Load Config Successfully")
+
 dav = NutstoreDav()
 dav.config(auth_tuple=(login, password))
 
@@ -24,6 +26,8 @@ for root, dirs, files in os.walk(dirpath):
         f.write(os.path.join(root, file), os.path.join(fpath, file))
 f.close()
 
+print("Make Zipfile Successfully")
+
 with open(target, "rb") as f:
     dav.mkdir("/Minecraft")
     dav.upload(f.read(), "/Minecraft/" + target)
@@ -31,3 +35,4 @@ with open(target, "rb") as f:
 dav.close()
 
 print("Backup successfully!")
+os.system("pause")
