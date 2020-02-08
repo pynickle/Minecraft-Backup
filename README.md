@@ -13,7 +13,10 @@ Third, add your account, third-party application password and the Minecraft worl
 {
     "login": "<account>",
     "password": "<password>",
-    "dirpath": "<.../saves/...>"
+    "dirpath": [
+        "<.../saves/...>",
+        "<.../saves/...>"
+    ]
 }
 ```
 

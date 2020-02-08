@@ -17,20 +17,21 @@ dav = NutstoreDav()
 dav.config(auth_tuple=(login, password))
 
 time = strftime(" %Y-%m-%d,%H-%M-%S")
-target = os.path.basename(dirpath) + time + ".zip"
+for path in dirpath:
+    target = os.path.basename(path) + time + ".zip"
 
-f = zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED)
-for root, dirs, files in os.walk(dirpath):
-    fpath = root.replace(dirpath, '')
-    for file in files:
-        f.write(os.path.join(root, file), os.path.join(fpath, file))
-f.close()
+    f = zipfile.ZipFile(target, 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk(path):
+        fpath = root.replace(path, '')
+        for file in files:
+            f.write(os.path.join(root, file), os.path.join(fpath, file))
+    f.close()
 
-print("Make Zipfile Successfully")
+    print(f"Make {target} Zipfile Successfully")
 
-with open(target, "rb") as f:
-    dav.mkdir("/Minecraft")
-    dav.upload(f.read(), "/Minecraft/" + target)
+    with open(target, "rb") as f:
+        dav.mkdir("/Minecraft")
+        dav.upload(f.read(), "/Minecraft/" + target)
 
 dav.close()
 
